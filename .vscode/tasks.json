@@ -4,42 +4,71 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "TEST",
+            "label": "BROKEN",
             "type": "shell",
-            "command": "echo -e \"error: attempt to call something which is not a function but a set\\n\\n  at /nix/store/vdz0n3i2yszb2l8q9vsnnmdh3kbscsam-source/home/manu/parts/vscodium.nix:248:8:\"",
+            "command": "echo -e \"FOO\\nerror: attempt to call something which is not a function but a set\\n\\n  at /nix/store/vdz0n3i2yszb2l8q9vsnnmdh3kbscsam-source/home/manu/parts/vscodium.nix:248:8:\"",
             "problemMatcher": {
-                // The problem is owned by the cpp language service.
                 "owner": "nix",
-                // The file name for reported problems is relative to the opened folder.
                 "fileLocation": [
                     "relative",
                     "${workspaceFolder}"
                 ],
-                /* Example output:
-                error: attempt to call something which is not a function but a set
-
-                    at /nix/store/vdz0n3i2yszb2l8q9vsnnmdh3kbscsam-source/home/manu/parts/vscodium.nix:248:8:
-                */
                 "pattern": [
                     {
                         "regexp": "^error: (.*)$",
-                        // "severity": 1, // (error):
                         "message": 1,
                     },
                     {
                         "regexp": "^$",
-                        // "severity": 1, // (error):
-                        // "message": 1,
                     },
                     {
-                        "regexp": "^\\s+at \/nix\/store\/[a-z0-9]+-source\/(.+):(\\d+):(\\d+)(:)$",
+                        "regexp": "^\\s+at \/nix\/store\/[a-z0-9]+-source\/(.+):(\\d+):(\\d+):$",
                         "file": 1,
                         "line": 2,
                         "column": 3,
-                        // "message": 4,
                     }
                 ]
             },
+            "presentation": {
+                "echo": false,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "close": false
+            }
+        },
+        {
+            "label": "WORKING",
+            "type": "shell",
+            "command": "echo -e \"FOO\\nerror: attempt to call something which is not a function but a set\\n  at /nix/store/vdz0n3i2yszb2l8q9vsnnmdh3kbscsam-source/home/manu/parts/vscodium.nix:248:8:\"",
+            "problemMatcher": {
+                "owner": "nix",
+                "fileLocation": [
+                    "relative",
+                    "${workspaceFolder}"
+                ],
+                "pattern": [
+                    {
+                        "regexp": "^error: (.*)$",
+                        "message": 1,
+                    },
+                    {
+                        "regexp": "^\\s+at \/nix\/store\/[a-z0-9]+-source\/(.+):(\\d+):(\\d+):$",
+                        "file": 1,
+                        "line": 2,
+                        "column": 3,
+                    }
+                ]
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "close": false
+            }
         }
     ]
 }
